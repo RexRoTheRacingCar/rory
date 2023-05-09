@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Enemy_Large.gd" type="Script" id=1]
+[ext_resource path="res://Art/Enemy_Large.png" type="Texture" id=2]
+[ext_resource path="res://Trail2D.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 22, 22.5 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=4]
+interpolation_mode = 2
+offsets = PoolRealArray( 0.00558659, 0.234637, 0.703911, 0.910615 )
+colors = PoolColorArray( 0.14902, 0.172549, 0.231373, 0, 1, 0, 0, 0.278431, 0.910156, 0.334476, 0.0533295, 1, 1, 1, 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 23, 17.2916 )
+
+[node name="Enemy_Large_1" type="KinematicBody2D"]
+collision_mask = 3
+script = ExtResource( 1 )
+
+[node name="EnemyLarge" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -2.5 )
+shape = SubResource( 1 )
+
+[node name="Trail2D" type="Line2D" parent="."]
+show_behind_parent = true
+width = 6.0
+width_curve = SubResource( 3 )
+default_color = Color( 0.858824, 0.34902, 0.211765, 1 )
+gradient = SubResource( 4 )
+antialiased = true
+script = ExtResource( 3 )
+length = 24
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 2.27374e-13, -2 )
+scale = Vector2( 1, 1.2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -2.27374e-13, 2.29163 )
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

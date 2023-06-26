@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Art/Enemy_Dodge.png" type="Texture" id=1]
+[ext_resource path="res://Trail2D.gd" type="Script" id=2]
+[ext_resource path="res://ProgressBar.gd" type="Script" id=3]
+[ext_resource path="res://Enemy_Dodge.gd" type="Script" id=4]
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 12.0
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 2.65613, 0, 0, Vector2( 0.761905, 0.845455 ), 0.0, 0.0, 0, 0, Vector2( 0.961905, 0 ), -1.00227, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=2]
+interpolation_mode = 2
+offsets = PoolRealArray( 0.00558659, 0.22905, 0.703911, 0.910615 )
+colors = PoolColorArray( 0.14902, 0.172549, 0.231373, 0, 1, 0.492188, 0, 0.278431, 0.910156, 0.0533295, 0.0533295, 1, 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 0, 0, 0.780392 )
+skew = Vector2( 0.25, 0 )
+border_color = Color( 0.141176, 0.0352941, 0.0352941, 1 )
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 12
+shadow_color = Color( 0.498039, 0, 0, 0.6 )
+shadow_size = 1
+shadow_offset = Vector2( 1, 0 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.113725, 0.00392157, 0.00392157, 1 )
+skew = Vector2( 0.25, 0 )
+border_color = Color( 0, 0, 0, 1 )
+shadow_size = 2
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 28, 11 )
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 12.0
+height = 30.0
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 38, 66 )
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 54.037
+
+[node name="Enemy_Dodge" type="KinematicBody2D"]
+collision_mask = 18
+script = ExtResource( 4 )
+
+[node name="EnemyDodge" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 16 )
+rotation = 1.5708
+shape = SubResource( 3 )
+
+[node name="Trail2D" type="Line2D" parent="."]
+show_behind_parent = true
+width = 7.0
+width_curve = SubResource( 1 )
+default_color = Color( 0.858824, 0.34902, 0.211765, 1 )
+gradient = SubResource( 2 )
+antialiased = true
+script = ExtResource( 2 )
+length = 28
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchor_right = 1.0
+margin_left = -26.0
+margin_top = 29.0
+margin_right = 26.0
+margin_bottom = 43.0
+custom_colors/font_color = Color( 0.780392, 0.341176, 0.341176, 1 )
+custom_colors/font_color_shadow = Color( 0.505882, 0.160784, 0.160784, 1 )
+custom_styles/fg = SubResource( 4 )
+custom_styles/bg = SubResource( 5 )
+max_value = 3.0
+value = 3.0
+percent_visible = false
+script = ExtResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="ProgressBar"]
+position = Vector2( 26, -23 )
+collision_mask = 3
+space_override = 3
+gravity_point = true
+gravity_distance_scale = 9.868
+
+[node name="CollisionShape2D1" type="CollisionShape2D" parent="ProgressBar/Area2D"]
+position = Vector2( 0, 11 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ProgressBar/Area2D"]
+position = Vector2( 0, -5 )
+shape = SubResource( 7 )
+
+[node name="Dodge Detection" type="Area2D" parent="."]
+position = Vector2( 0, 6 )
+collision_mask = 3
+space_override = 3
+gravity_point = true
+gravity_distance_scale = 9.868
+
+[node name="Detect" type="CollisionShape2D" parent="Dodge Detection"]
+position = Vector2( 0, -42 )
+shape = SubResource( 8 )
+
+[node name="Detect2" type="CollisionShape2D" parent="Dodge Detection"]
+position = Vector2( 0, -6 )
+shape = SubResource( 9 )
+
+[connection signal="changed" from="ProgressBar" to="." method="_on_ProgressBar_changed"]
+[connection signal="body_entered" from="ProgressBar/Area2D" to="ProgressBar" method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Dodge Detection" to="." method="_on_Dodge_Detection_body_entered"]

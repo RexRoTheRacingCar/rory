@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Trail2D.gd" type="Script" id=1]
+[ext_resource path="res://Enemy_Bullet.gd" type="Script" id=2]
+[ext_resource path="res://Art/Enemy_Bullet.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 5, 11.5 )
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 7.0
+height = 22.0
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 0 ), 0.0, 2.04075, 0, 0, Vector2( 1, 1 ), 0.0502395, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=8]
+interpolation_mode = 2
+offsets = PoolRealArray( 0.00558659, 0.22905, 0.843575, 1 )
+colors = PoolColorArray( 0.14902, 0.172549, 0.231373, 0, 1, 0, 0, 0.278431, 0.945313, 0.332336, 0.332336, 1, 1, 0.617188, 0.617188, 1 )
+
+[node name="Enemy_Bullet" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 257
+mode = 2
+mass = 0.00816326
+gravity_scale = 0.0
+continuous_cd = 1
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.5 )
+shape = SubResource( 3 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+scale = Vector2( 50, 50 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -4 )
+shape = SubResource( 4 )
+
+[node name="Trail2D" type="Line2D" parent="."]
+show_behind_parent = true
+width = 6.0
+width_curve = SubResource( 7 )
+default_color = Color( 0.858824, 0.34902, 0.211765, 1 )
+gradient = SubResource( 8 )
+antialiased = true
+script = ExtResource( 1 )
+length = 20
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

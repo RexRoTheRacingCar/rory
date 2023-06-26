@@ -1,0 +1,440 @@
+[gd_scene load_steps=46 format=2]
+
+[ext_resource path="res://Title Screen.gd" type="Script" id=1]
+[ext_resource path="res://static/Orbitron-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://static/Orbitron-Black.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Title_Screen.tres" type="StyleBox" id=4]
+[ext_resource path="res://Score List.gd" type="Script" id=5]
+[ext_resource path="res://Art/Player.png" type="Texture" id=6]
+[ext_resource path="res://Art/Player_Hit.png" type="Texture" id=7]
+[ext_resource path="res://Art/Bullet.png" type="Texture" id=8]
+[ext_resource path="res://HSlider.gd" type="Script" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0.133333, 0.180392, 0.266667, 1 )
+skew = Vector2( 0.45, 0 )
+border_width_left = 20
+border_width_top = 10
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_bottom_right = 12
+shadow_size = 20
+shadow_offset = Vector2( 8, 8 )
+anti_aliasing_size = 1.04
+
+[sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0.807843, 0.552941, 0.301961, 1 )
+skew = Vector2( 0.45, 0 )
+border_width_left = 20
+border_width_top = 10
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_bottom_right = 12
+shadow_size = 20
+shadow_offset = Vector2( 8, 8 )
+anti_aliasing_size = 1.04
+
+[sub_resource type="DynamicFont" id=4]
+size = 197
+outline_size = 15
+outline_color = Color( 0.223529, 0.396078, 0.619608, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="Curve" id=31]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, -360 ), 0.0, 0.0, 0, 0, Vector2( 0.713483, 360 ), -455.701, -455.701, 0, 0, Vector2( 1, -360 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=32]
+curve = SubResource( 31 )
+
+[sub_resource type="Gradient" id=33]
+interpolation_mode = 2
+offsets = PoolRealArray( 0.503226, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.0283813, 0.185129, 0.484375, 1 )
+
+[sub_resource type="GradientTexture" id=34]
+gradient = SubResource( 33 )
+
+[sub_resource type="Curve" id=35]
+min_value = -200.0
+max_value = 200.0
+_data = [ Vector2( 0, -200 ), 0.0, 1384.79, 0, 0, Vector2( 1, 200 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=36]
+curve = SubResource( 35 )
+
+[sub_resource type="Curve" id=37]
+_data = [ Vector2( 0, 0 ), 0.0, 1.07879, 0, 0, Vector2( 0.691011, 1 ), 3.88363, 3.88363, 0, 0, Vector2( 1, 0 ), -6.76694, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=38]
+curve = SubResource( 37 )
+
+[sub_resource type="ParticlesMaterial" id=39]
+emission_shape = 2
+emission_box_extents = Vector3( 450, 100, -1 )
+flag_disable_z = true
+spread = 75.3
+gravity = Vector3( 0, 100, 0 )
+initial_velocity = 250.0
+initial_velocity_random = 0.04
+orbit_velocity = -0.03
+orbit_velocity_random = 0.05
+radial_accel = 0.15
+radial_accel_curve = SubResource( 36 )
+angle = 720.0
+angle_random = 1.0
+angle_curve = SubResource( 32 )
+scale = 9.0
+scale_random = 1.0
+scale_curve = SubResource( 38 )
+color_ramp = SubResource( 34 )
+
+[sub_resource type="DynamicFontData" id=46]
+font_path = "res://static/Orbitron-Black.ttf"
+
+[sub_resource type="DynamicFont" id=47]
+size = 36
+font_data = SubResource( 46 )
+
+[sub_resource type="DynamicFont" id=42]
+size = 64
+outline_size = 8
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=41]
+size = 88
+outline_size = 15
+outline_color = Color( 0.223529, 0.396078, 0.619608, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFontData" id=45]
+font_path = "res://static/Orbitron-Black.ttf"
+
+[sub_resource type="DynamicFont" id=44]
+size = 74
+outline_size = 11
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 45 )
+
+[sub_resource type="StyleBoxFlat" id=43]
+bg_color = Color( 1, 1, 1, 1 )
+skew = Vector2( 1, 0 )
+border_color = Color( 1, 0, 0, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="RectangleShape2D" id=40]
+
+[sub_resource type="Environment" id=13]
+background_mode = 4
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 3.66
+ambient_light_sky_contribution = 0.35
+fog_color = Color( 0.0705882, 0.243137, 0.423529, 1 )
+fog_sun_color = Color( 1, 1, 1, 1 )
+fog_sun_amount = 0.62
+fog_depth_begin = 1914.8
+fog_depth_end = 101.9
+fog_depth_curve = 3.4822
+fog_transmit_enabled = true
+fog_height_enabled = true
+fog_height_min = 53.7
+fog_height_max = -8.1
+fog_height_curve = 2.37841
+auto_exposure_scale = 0.06
+auto_exposure_min_luma = 0.0
+auto_exposure_max_luma = 5.26
+ss_reflections_fade_in = 0.369343
+ss_reflections_fade_out = 1.56917
+ss_reflections_depth_tolerance = 68.5
+ssao_radius = 128.0
+ssao_intensity = 76.58
+ssao_radius2 = 30.67
+ssao_intensity2 = 64.39
+ssao_bias = 2.676
+ssao_light_affect = 0.67
+ssao_ao_channel_affect = 0.36
+ssao_color = Color( 0.87451, 0.831373, 0.831373, 1 )
+ssao_quality = 2
+ssao_edge_sharpness = 0.0
+dof_blur_far_distance = 0.34
+dof_blur_far_transition = 8192.0
+dof_blur_far_amount = 1.0
+dof_blur_far_quality = 2
+dof_blur_near_distance = 1.0
+dof_blur_near_quality = 2
+glow_enabled = true
+glow_levels/2 = true
+glow_levels/5 = false
+glow_intensity = 1.29
+glow_strength = 0.6
+glow_bloom = 0.3
+glow_blend_mode = 1
+glow_hdr_scale = 1.67
+glow_bicubic_upscale = true
+glow_high_quality = true
+adjustment_enabled = true
+adjustment_brightness = 1.2
+adjustment_saturation = 1.63
+
+[sub_resource type="Gradient" id=20]
+interpolation_mode = 2
+offsets = PoolRealArray( 0.354839, 0.767742, 0.858065 )
+colors = PoolColorArray( 0.615686, 0.729412, 0.717647, 0.933333, 0.380392, 0.572549, 0.960784, 0.4, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 20 )
+
+[sub_resource type="Curve" id=21]
+_data = [ Vector2( 0.275281, 0 ), 0.0, 65.5364, 0, 0, Vector2( 0.61236, 1 ), -0.145902, -0.145902, 0, 0, Vector2( 1, 0 ), -8.43766, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 21 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+lifetime_randomness = 0.3
+emission_shape = 2
+emission_box_extents = Vector3( 960, 540, 0 )
+flag_disable_z = true
+spread = 10.03
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 574.26
+initial_velocity_random = 1.0
+angular_velocity = 720.0
+angular_velocity_random = 0.07
+orbit_velocity = -0.01
+orbit_velocity_random = 1.0
+angle_random = 1.0
+scale = 2.0
+scale_random = 0.75
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
+hue_variation = 0.02
+hue_variation_random = 0.14
+
+[sub_resource type="Gradient" id=22]
+interpolation_mode = 2
+offsets = PoolRealArray( 0.354839, 0.767742, 0.858065 )
+colors = PoolColorArray( 0.615686, 0.729412, 0.717647, 0.933333, 0.380392, 0.572549, 0.960784, 0.4, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=23]
+gradient = SubResource( 22 )
+
+[sub_resource type="Curve" id=24]
+_data = [ Vector2( 0.275281, 0 ), 0.0, 65.5364, 0, 0, Vector2( 0.61236, 1 ), -0.145902, -0.145902, 0, 0, Vector2( 1, 0 ), -8.43766, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=25]
+curve = SubResource( 24 )
+
+[sub_resource type="Gradient" id=26]
+interpolation_mode = 2
+colors = PoolColorArray( 1, 1, 1, 1, 0.138977, 0.400546, 0.808594, 1 )
+
+[sub_resource type="GradientTexture" id=27]
+gradient = SubResource( 26 )
+
+[sub_resource type="Curve" id=28]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.988764, 0 ), -3.06603, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=29]
+curve = SubResource( 28 )
+
+[sub_resource type="ParticlesMaterial" id=30]
+lifetime_randomness = 0.3
+trail_divisor = 5
+trail_size_modifier = SubResource( 29 )
+trail_color_modifier = SubResource( 27 )
+emission_shape = 2
+emission_box_extents = Vector3( 960, 540, 0 )
+flag_disable_z = true
+spread = 10.03
+gravity = Vector3( 200, 100, 0 )
+initial_velocity = 574.26
+initial_velocity_random = 1.0
+angular_velocity = 720.0
+angular_velocity_random = 0.07
+orbit_velocity = -0.01
+orbit_velocity_random = 1.0
+angle_random = 1.0
+scale = 2.0
+scale_random = 0.75
+scale_curve = SubResource( 25 )
+color_ramp = SubResource( 23 )
+hue_variation = 0.02
+hue_variation_random = 0.14
+
+[node name="Title Screen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="StartButton" type="Button" parent="."]
+anchor_right = 0.468
+margin_left = 1105.0
+margin_top = 500.0
+margin_right = 1056.44
+margin_bottom = 650.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/normal = ExtResource( 4 )
+text = "      Start Game"
+align = 0
+icon_align = 1
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.535
+anchor_top = 0.272
+anchor_right = 0.535
+anchor_bottom = 0.272
+margin_left = -447.2
+margin_top = -153.76
+margin_right = 373.8
+margin_bottom = 98.24
+custom_fonts/font = SubResource( 4 )
+text = "Breach "
+align = 1
+
+[node name="Particles2D" type="Particles2D" parent="Label"]
+position = Vector2( 420, 130 )
+amount = 75
+process_material = SubResource( 39 )
+
+[node name="Score List" type="Node2D" parent="."]
+
+[node name="Controls" type="Label" parent="Score List"]
+anchor_left = 0.535
+anchor_top = 0.272
+anchor_right = 0.81
+anchor_bottom = 0.272
+margin_left = -191.0
+margin_top = 19.0
+margin_right = 2117.0
+margin_bottom = 269.0
+custom_fonts/font = SubResource( 47 )
+text = "WSAD or Arrow Keys to Move - Left Click to Shoot - Right Click or Space to Dash"
+align = 1
+
+[node name="Label2" type="Label" parent="Score List"]
+anchor_left = 0.535
+anchor_top = 0.272
+anchor_right = 0.81
+anchor_bottom = 0.272
+margin_left = 64.0
+margin_top = 601.0
+margin_right = 941.0
+margin_bottom = 851.0
+custom_fonts/font = SubResource( 42 )
+align = 1
+script = ExtResource( 5 )
+
+[node name="Health" type="Label" parent="Score List"]
+anchor_left = 0.535
+anchor_top = 0.272
+anchor_right = 0.81
+anchor_bottom = 0.272
+margin_left = 1068.0
+margin_top = 743.0
+margin_right = 1945.0
+margin_bottom = 993.0
+custom_fonts/font = SubResource( 41 )
+text = "Health"
+align = 1
+
+[node name="Health Advise" type="Label" parent="Score List"]
+anchor_left = 0.535
+anchor_top = 0.272
+anchor_right = 0.81
+anchor_bottom = 0.272
+margin_left = 1077.0
+margin_top = 903.0
+margin_right = 1954.0
+margin_bottom = 1014.0
+custom_colors/font_color = Color( 0.772549, 0.239216, 0.239216, 1 )
+custom_fonts/font = SubResource( 44 )
+text = "1   2   3   4   5"
+align = 1
+
+[node name="HSlider" type="HSlider" parent="Score List"]
+anchor_left = 0.619
+anchor_top = 0.622
+anchor_right = 0.619
+anchor_bottom = 0.622
+margin_left = 1189.0
+margin_top = 814.0
+margin_right = 1823.0
+margin_bottom = 942.0
+custom_icons/tick = ExtResource( 8 )
+custom_icons/grabber_disabled = ExtResource( 6 )
+custom_icons/grabber_highlight = ExtResource( 7 )
+custom_icons/grabber = ExtResource( 6 )
+custom_styles/slider = SubResource( 43 )
+min_value = 1.0
+max_value = 5.0
+value = 1.0
+rounded = true
+tick_count = 5
+ticks_on_borders = true
+script = ExtResource( 9 )
+
+[node name="Label3" type="Label" parent="Score List"]
+anchor_left = 0.535
+anchor_top = 0.272
+anchor_right = 0.81
+anchor_bottom = 0.272
+margin_left = 61.0
+margin_top = 499.0
+margin_right = 938.0
+margin_bottom = 749.0
+custom_fonts/font = SubResource( 41 )
+text = "Score Board"
+align = 1
+
+[node name="Title_Screen" type="RigidBody2D" parent="."]
+
+[node name="Title_Screen" type="CollisionShape2D" parent="Title_Screen"]
+position = Vector2( 960, 540 )
+scale = Vector2( 160, 160 )
+shape = SubResource( 40 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 13 )
+
+[node name="Particles" type="Particles2D" parent="WorldEnvironment"]
+position = Vector2( 700, 540 )
+amount = 75
+lifetime = 2.0
+randomness = 0.19
+fixed_fps = 60
+process_material = SubResource( 12 )
+
+[node name="Particles2" type="Particles2D" parent="WorldEnvironment"]
+position = Vector2( 700, 540 )
+amount = 30
+lifetime = 2.0
+randomness = 0.19
+fixed_fps = 60
+process_material = SubResource( 30 )
+
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="gui_input" from="Score List/HSlider" to="Score List/HSlider" method="_on_HSlider_gui_input"]
+[connection signal="value_changed" from="Score List/HSlider" to="Score List/HSlider" method="_on_HSlider_value_changed"]

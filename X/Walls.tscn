@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Art/Right_Wall_Final.png" type="Texture" id=1]
+[ext_resource path="res://Art/Left_Wall_Final.png" type="Texture" id=2]
+
+[node name="Wall" type="Node2D"]
+
+[node name="Wall L" type="Sprite" parent="."]
+position = Vector2( 540, 540 )
+texture = ExtResource( 2 )
+
+[node name="Wall R" type="Sprite" parent="."]
+position = Vector2( 1380, 540 )
+texture = ExtResource( 1 )
